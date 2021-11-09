@@ -5,9 +5,12 @@ import './App.css';
 import HomePage from './pages/homepage/HomePage';
 import ShopPage from './components/shop/ShopPage';
 import Header from './components/header/Header';
+import { selectCurrentUser } from './redux/user/user.selectors';
+import { createStructuredSelector } from 'reselect';
 import SignInSignUp from './pages/sign-in-sign-up-page/SignInSignUp';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
+import CheckoutPage from './pages/checkout/CheckoutPage';
 
 
 class App extends React.Component {
@@ -49,14 +52,15 @@ class App extends React.Component {
             <SignInSignUp />
           )}
           />
+          <Route exact path="/checkout" component={CheckoutPage} />
         </Switch>
       </div>
     );
   }
 }
 
-const mapsStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapsStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 })
 
 const mapsDispatchToProps = dispatch => ({
